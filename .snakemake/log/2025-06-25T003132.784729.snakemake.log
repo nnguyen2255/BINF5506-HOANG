@@ -1,0 +1,3 @@
+NameError in file /home/ubuntu/binf5506/Snakefile, line 5:
+name 'output' is not defined
+  File "/home/ubuntu/binf5506/Snakefile", line 5, in <module>

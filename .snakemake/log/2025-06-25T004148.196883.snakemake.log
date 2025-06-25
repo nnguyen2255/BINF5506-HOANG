@@ -1,0 +1,29 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job        count
+-------  -------
+all            1
+goodbye        1
+hello          1
+total          3
+
+Select jobs to execute...
+
+[Wed Jun 25 00:41:48 2025]
+rule goodbye:
+    output: goodbye.txt
+    jobid: 2
+    reason: Missing output files: goodbye.txt
+    resources: tmpdir=/tmp
+
+[Wed Jun 25 00:41:48 2025]
+Error in rule goodbye:
+    jobid: 2
+    output: goodbye.txt
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2025-06-25T004148.196883.snakemake.log
