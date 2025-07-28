@@ -46,12 +46,11 @@ rule download_reference:
     output:
         reference_fasta = f"{RAW_DIR}/reference.fasta"
     shell:
-    """
-    echo Downloading reference GenBank file for snpEff...
-    export PATH=$PATH:/root/edirect && \
-    efetch -db nucleotide -id AF086833.2 -format genbank > results/snpEff/data/reference_db/genes.gbk
-    echo Downloaded GenBank file for snpEff!
-    """
+        """
+        echo Downloading FASTA reference...
+        efetch -db nucleotide -id {REF_ID} -format fasta > {RAW_DIR}/reference.fasta
+        echo Downloaded reference.fasta!
+        """
 
  
 rule download_sra:

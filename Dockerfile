@@ -9,7 +9,7 @@ COPY environment.yml /tmp/environment.yml
 # Create the conda environment
 RUN conda env create -f /tmp/environment.yml
 
-# Install EDirect (efetch)
+# Install EDirect (efetch) (ChatGPT, 2025 - I had to ask for error handling and guidance on this )
 RUN apt-get update && \
     apt-get install -y perl wget unzip && \
     mkdir -p /root/edirect && \

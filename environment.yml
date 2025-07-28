@@ -11,3 +11,5 @@ dependencies:
   - gatk4
   - fastqc
   - snpeff
+  - entrez-direct
+  - sra-tools 
