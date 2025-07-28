@@ -26,4 +26,5 @@ ENV PATH="/root/edirect:$PATH"
 COPY . /pipeline
 
 # Run Snakemake as the default command
-CMD ["conda", "run", "--no-capture-output", "-n", "snakemake_env", "snakemake", "--cores", "1"]
+CMD ["/bin/bash", "-c", "export PATH=$PATH:/root/edirect && conda run -n snakemake_env snakemake --cores 1"]
+
