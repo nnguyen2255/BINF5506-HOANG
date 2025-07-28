@@ -1,10 +1,17 @@
-FROM ubuntu:latest
+FROM continuumio/miniconda3
 
-RUN apt update
+# Set up environment
+RUN apt-get update && apt-get install -y curl git wget default-jre build-essential
 
-RUN apt upgrade -y
+# Install bioinformatics tools
+RUN conda install -c bioconda -c conda-forge \
+    snakemake bwa samtools gatk4 fastqc snpeff
 
-RUN apt install tree
+# Set working directory
+WORKDIR /pipeline
 
+# Copy Snakemake files into image
+COPY . /pipeline
 
-CMD tree
+# Set the command to run Snakemake pipeline
+CMD ["snakemake", "--cores", "1"]

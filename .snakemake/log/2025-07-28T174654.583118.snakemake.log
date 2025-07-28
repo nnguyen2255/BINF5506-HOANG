@@ -1,0 +1,177 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job                       count
+----------------------  -------
+alignment_read                1
+all                           1
+annotating_variants           1
+calling_variants              1
+convert_sam_to_bam            1
+create_fasta_dict             1
+download_GenBank              1
+filter_variants               1
+run_fastQC                    1
+snpEff_config                 1
+snpEff_database               1
+validate_duplicate_bam        1
+total                        12
+
+Select jobs to execute...
+
+[Mon Jul 28 17:46:56 2025]
+rule create_fasta_dict:
+    input: results/snakemake/.dirs_created, results/raw/SRR1972739/SRR1972739.sra, results/raw/SRR1972739.fastq
+    output: results/raw/reference.dict
+    jobid: 6
+    reason: Missing output files: results/raw/reference.dict
+    resources: tmpdir=/tmp
+
+[Mon Jul 28 17:47:00 2025]
+Finished job 6.
+1 of 12 steps (8%) done
+Select jobs to execute...
+
+[Mon Jul 28 17:47:00 2025]
+rule run_fastQC:
+    input: results/snakemake/.dirs_created, results/raw/SRR1972739/SRR1972739.sra, results/raw/SRR1972739.fastq
+    output: results/qc/SRR1972739_fastqc.zip, results/qc/SRR1972739_fastqc.html
+    jobid: 5
+    reason: Missing output files: results/qc/SRR1972739_fastqc.zip, results/qc/SRR1972739_fastqc.html
+    resources: tmpdir=/tmp
+
+[Mon Jul 28 17:47:04 2025]
+Finished job 5.
+2 of 12 steps (17%) done
+Select jobs to execute...
+
+[Mon Jul 28 17:47:04 2025]
+rule alignment_read:
+    input: results/snakemake/.dirs_created, results/raw/SRR1972739/SRR1972739.sra, results/raw/SRR1972739.fastq
+    output: results/aligned/aligned.sam
+    jobid: 7
+    reason: Missing output files: results/aligned/aligned.sam
+    resources: tmpdir=/tmp
+
+[Mon Jul 28 17:47:05 2025]
+Finished job 7.
+3 of 12 steps (25%) done
+Select jobs to execute...
+
+[Mon Jul 28 17:47:05 2025]
+rule convert_sam_to_bam:
+    input: results/aligned/aligned.sam
+    output: results/aligned/aligned.sorted.bam
+    jobid: 8
+    reason: Missing output files: results/aligned/aligned.sorted.bam; Input files updated by another job: results/aligned/aligned.sam
+    resources: tmpdir=/tmp
+
+[Mon Jul 28 17:47:06 2025]
+Finished job 8.
+4 of 12 steps (33%) done
+Select jobs to execute...
+
+[Mon Jul 28 17:47:06 2025]
+rule validate_duplicate_bam:
+    input: results/aligned/aligned.sorted.bam
+    output: results/aligned/dedup.bam, results/aligned/dup_metrics.txt
+    jobid: 9
+    reason: Missing output files: results/aligned/dup_metrics.txt, results/aligned/dedup.bam; Input files updated by another job: results/aligned/aligned.sorted.bam
+    resources: tmpdir=/tmp
+
+[Mon Jul 28 17:47:13 2025]
+Finished job 9.
+5 of 12 steps (42%) done
+Select jobs to execute...
+
+[Mon Jul 28 17:47:13 2025]
+rule download_GenBank:
+    input: results/snakemake/.dirs_created
+    output: results/snpEff/data/reference_db/genes.gbk
+    jobid: 12
+    reason: Missing output files: results/snpEff/data/reference_db/genes.gbk
+    resources: tmpdir=/tmp
+
+[Mon Jul 28 17:47:14 2025]
+Finished job 12.
+6 of 12 steps (50%) done
+Select jobs to execute...
+
+[Mon Jul 28 17:47:14 2025]
+rule snpEff_config:
+    input: results/snakemake/.dirs_created, results/raw/reference.fasta, results/snpEff/data/reference_db/genes.gbk
+    output: results/snpEff/snpEff.config
+    jobid: 13
+    reason: Missing output files: results/snpEff/snpEff.config; Input files updated by another job: results/snpEff/data/reference_db/genes.gbk
+    resources: tmpdir=/tmp
+
+[Mon Jul 28 17:47:14 2025]
+Finished job 13.
+7 of 12 steps (58%) done
+Select jobs to execute...
+
+[Mon Jul 28 17:47:14 2025]
+rule snpEff_database:
+    input: results/snpEff/snpEff.config
+    output: results/snpEff/snpEff_reference_db.txt
+    jobid: 14
+    reason: Missing output files: results/snpEff/snpEff_reference_db.txt; Input files updated by another job: results/snpEff/snpEff.config
+    resources: tmpdir=/tmp
+
+[Mon Jul 28 17:47:15 2025]
+Finished job 14.
+8 of 12 steps (67%) done
+Select jobs to execute...
+
+[Mon Jul 28 17:47:15 2025]
+rule calling_variants:
+    input: results/raw/reference.fasta, results/aligned/dedup.bam
+    output: results/variants/raw_variants.vcf
+    jobid: 10
+    reason: Missing output files: results/variants/raw_variants.vcf; Input files updated by another job: results/aligned/dedup.bam
+    resources: tmpdir=/tmp
+
+[Mon Jul 28 17:47:42 2025]
+Finished job 10.
+9 of 12 steps (75%) done
+Select jobs to execute...
+
+[Mon Jul 28 17:47:42 2025]
+rule filter_variants:
+    input: results/raw/reference.fasta, results/variants/raw_variants.vcf
+    output: results/variants/filtered_variants.vcf
+    jobid: 11
+    reason: Missing output files: results/variants/filtered_variants.vcf; Input files updated by another job: results/variants/raw_variants.vcf
+    resources: tmpdir=/tmp
+
+[Mon Jul 28 17:47:45 2025]
+Finished job 11.
+10 of 12 steps (83%) done
+Select jobs to execute...
+
+[Mon Jul 28 17:47:45 2025]
+rule annotating_variants:
+    input: results/raw/reference.fasta, results/variants/filtered_variants.vcf, results/snpEff/snpEff.config, results/snpEff/snpEff_reference_db.txt
+    output: results/annotated/annotated_variants.vcf
+    jobid: 15
+    reason: Missing output files: results/annotated/annotated_variants.vcf; Input files updated by another job: results/snpEff/snpEff.config, results/snpEff/snpEff_reference_db.txt, results/variants/filtered_variants.vcf
+    resources: tmpdir=/tmp
+
+[Mon Jul 28 17:47:47 2025]
+Finished job 15.
+11 of 12 steps (92%) done
+Select jobs to execute...
+
+[Mon Jul 28 17:47:47 2025]
+localrule all:
+    input: results/snakemake/.dirs_created, results/raw/reference.fasta, results/raw/SRR1972739/SRR1972739.sra, results/raw/SRR1972739.fastq, results/qc/SRR1972739_fastqc.zip, results/qc/SRR1972739_fastqc.html, results/raw/reference.dict, results/aligned/aligned.sam, results/aligned/aligned.sorted.bam, results/aligned/dedup.bam, results/aligned/dup_metrics.txt, results/variants/raw_variants.vcf, results/variants/filtered_variants.vcf, results/snpEff/data/reference_db/genes.gbk, results/snpEff/snpEff.config, results/snpEff/snpEff_reference_db.txt, results/annotated/annotated_variants.vcf
+    jobid: 0
+    reason: Input files updated by another job: results/qc/SRR1972739_fastqc.zip, results/qc/SRR1972739_fastqc.html, results/raw/reference.dict, results/snpEff/data/reference_db/genes.gbk, results/aligned/aligned.sorted.bam, results/snpEff/snpEff.config, results/aligned/dup_metrics.txt, results/variants/raw_variants.vcf, results/annotated/annotated_variants.vcf, results/variants/filtered_variants.vcf, results/snpEff/snpEff_reference_db.txt, results/aligned/dedup.bam, results/aligned/aligned.sam
+    resources: tmpdir=/tmp
+
+[Mon Jul 28 17:47:47 2025]
+Finished job 0.
+12 of 12 steps (100%) done
+Complete log: .snakemake/log/2025-07-28T174654.583118.snakemake.log

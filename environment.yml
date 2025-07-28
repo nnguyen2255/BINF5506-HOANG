@@ -1,0 +1,13 @@
+name: snakemake_env
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - snakemake=7.32.4
+  - bwa
+  - samtools
+  - gatk4
+  - fastqc
+  - snpeff
