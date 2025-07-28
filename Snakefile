@@ -10,8 +10,7 @@ QC_DIR=f"{RESULTS_FOLDER}/qc"
 SNPEFF_DIR=f"{RESULTS_FOLDER}/snpEff"
 SNPEFF_DATA_DIR=f"{SNPEFF_DIR}/data/reference_db"
 SNAKEMAKE_DIR=f"{RESULTS_FOLDER}/snakemake"
-BUCKET="hoang-assignment2"
-S3_PREFIX="assignment2"
+
  
 rule all:
     input: 
